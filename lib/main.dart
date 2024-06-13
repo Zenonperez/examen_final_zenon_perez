@@ -1,4 +1,6 @@
 import 'package:examen_final_perez/providers/providers.dart';
+import 'package:examen_final_perez/screens/home_screen.dart';
+import 'package:examen_final_perez/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +38,7 @@ class MyApp extends StatelessWidget {
       routes: {
         'home':(_) => HomeScreen(),
         'login': (_) => LoginScreen(),
-        'details': (_) => DetailScreen(),
+       // 'details': (_) => DetailScreen(),
       }
     );
   }

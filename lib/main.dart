@@ -1,5 +1,7 @@
+import 'package:examen_final_perez/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 
 void main() {
   runApp(MyAppState());
@@ -10,7 +12,7 @@ class MyAppState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [ChangeNotifierProvider(create: (_) => User_Provider()),
+    return MultiProvider(providers: [ChangeNotifierProvider(create: (_) => RunnerProvider()),
     ChangeNotifierProvider(create: (_) => LoginProvider())],
     child: MyApp(),
     );

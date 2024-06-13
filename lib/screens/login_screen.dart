@@ -2,6 +2,12 @@ import 'package:examen_final_perez/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+/**
+ * Pantalla de inicio de sesion en la que tendremos que introducir los credenciales para poder entrar y salir de la sesión, es importate 
+ * meter los datos que se pide en el formulario minimo se necesita el nombre con mas de 4 caracteres y una contraseña de unos 6
+ * si hemos dado a recuerda me se guardaran los credenciales al cerrar sesion
+ */
+
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -16,7 +22,7 @@ class LoginScreen extends StatelessWidget {
             right: 0,
             child: Center(
               child: Icon(
-                Icons.supervised_user_circle_sharp,
+                Icons.supervised_user_circle_rounded,
                 color: Colors.white,
                 size: 100,
               ),
@@ -53,7 +59,7 @@ class LoginScreen extends StatelessWidget {
                         loginProvider.isLoading = false;
                       },
                       child: Text(
-                        'Connect',
+                        'Conect',
                         style: TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold),
                       ))

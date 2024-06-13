@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginProvider extends ChangeNotifier{
+/**
+ * Provider que manejara el inicio y cierre de sesión y de guardar con shared preferences las credeciales de inicio al cerrar sesion
+ */
+class LoginProvider extends ChangeNotifier {
   GlobalKey<FormState> loginKey = new GlobalKey<FormState>();
 
   String user = '';
   String password = '';
   bool rememberMe = false;
 
-
-  LoginProvider(){
-    
+  LoginProvider() {
     loadUserPreferences();
-    
   }
 
   bool _isLoading = false;
@@ -22,58 +22,62 @@ class LoginProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-bool isValidForm() {
+  bool isValidForm() {
     print('Valor del formulari: ${loginKey.currentState?.validate()}');
     print('$user - $password');
     return loginKey.currentState?.validate() ?? false;
   }
 
-Future<void> loadUserPreferences() async {
-  final pref = await SharedPreferences.getInstance();
-  rememberMe = pref.getBool('rememberMe') ?? false;
-  if (rememberMe){
-  user = pref.getString('user') ?? '';
-  password = pref.getString('password') ?? '';
+  Future<void> loadUserPreferences() async {
+    final pref = await SharedPreferences.getInstance();
+    rememberMe = pref.getBool('rememberMe') ?? false;
+    if (rememberMe) {
+      user = pref.getString('user') ?? '';
+      password = pref.getString('password') ?? '';
+    }
+    notifyListeners();
   }
-  notifyListeners();
-}
 
-Future<void> saveUserPreferences() async {
-  final pref = await SharedPreferences.getInstance();
-  if (rememberMe){
-    await pref.setString('user', user);
-    await pref.setString('password', password);
-    await pref.setBool('rememberMe', rememberMe);
-    }else{
+  Future<void> saveUserPreferences() async {
+    final pref = await SharedPreferences.getInstance();
+    if (rememberMe) {
+      await pref.setString('user', user);
+      await pref.setString('password', password);
+      await pref.setBool('rememberMe', rememberMe);
+    } else {
       await pref.remove('user');
       user = '';
       await pref.remove('password');
       password = '';
       await pref.remove('rememberMe');
       rememberMe = false;
-
     }
+    await pref.setBool('logginIn', true);
     notifyListeners();
   }
 
   Future<void> clearUserPreferences() async {
     final prefs = await SharedPreferences.getInstance();
-    if (!rememberMe){
-    await prefs.remove('user');
-    await prefs.remove('password');
-    await prefs.remove('rememberMe');
+    if (!rememberMe) {
+      await prefs.remove('user');
+      await prefs.remove('password');
+      await prefs.remove('rememberMe');
     }
     await prefs.setBool('logginIn', false);
   }
 
-void logout() async {
-await clearUserPreferences();
-if (!rememberMe){
-user = '';
-password = '';
-}
-notifyListeners();
-}
-}
+  Future<bool> isLoginIn() async {
+    final pref = await SharedPreferences.getInstance();
 
+    return pref.getBool('logginIn') ?? false;
+  }
 
+  void logout() async {
+    await clearUserPreferences();
+    if (!rememberMe) {
+      user = '';
+      password = '';
+    }
+    notifyListeners();
+  }
+}

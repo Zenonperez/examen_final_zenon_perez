@@ -1,9 +1,14 @@
 import 'package:examen_final_perez/providers/providers.dart';
+import 'package:examen_final_perez/screens/details.dart';
 import 'package:examen_final_perez/screens/home_screen.dart';
 import 'package:examen_final_perez/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+
+/**
+ * El main del programa que se encargara de iniciar el programa, empezara desde el login y al entrar el login nos llevara home donde podremos ir a details si jacemos click en un corredor-
+ */
 
 void main() {
   runApp(MyAppState());
@@ -38,7 +43,7 @@ class MyApp extends StatelessWidget {
       routes: {
         'home':(_) => HomeScreen(),
         'login': (_) => LoginScreen(),
-       // 'details': (_) => DetailScreen(),
+        'details': (_) => DetailScreen(),
       }
     );
   }

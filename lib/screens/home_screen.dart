@@ -5,6 +5,12 @@ import 'package:examen_final_perez/widgets/user_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+/**
+ * Pantalla principal del programa que mostrara a los corredores en forma de lista utilizando el widget runnerCard donde se muestra
+ * la posición y nombre del corredor, de derecha a izquierda se elimina y si se hace click sobre este nos llevara a la pantalla de 
+ * detalles para ver los detalles de corredor
+ */
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -15,15 +21,22 @@ class HomeScreen extends StatelessWidget {
     List<Runner> runners = runnerProvider.runners;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Corredores', 
-        style: TextStyle(
-          color: Colors.white),
+        title: Text(
+          'Corredores',
+          style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.blue[900],
-        actions: [IconButton(onPressed: () async{
-          loginProvider.logout();
-          Navigator.of(context).pushReplacementNamed('login');
-        }, icon: Icon(Icons.power_settings_new_rounded, color: Colors.white,))],
+        actions: [
+          IconButton(
+              onPressed: () async {
+                loginProvider.logout();
+                Navigator.of(context).pushReplacementNamed('login');
+              },
+              icon: Icon(
+                Icons.power_settings_new_rounded,
+                color: Colors.white,
+              ))
+        ],
       ),
       body: runners.isEmpty
           ? Loading()
@@ -70,7 +83,8 @@ class HomeScreen extends StatelessWidget {
           // per que aquest no tindrà id encara, i d'aquesta forma sabrem
           // discernir al detailscreen que estam creant un runner nou i no
           // modificant un existent
-          runnerProvider.tempRunner = Runner(name: '', bibnumber: '', time: '', photofinish: '', position: '');
+          runnerProvider.tempRunner = Runner(
+              name: '', bibnumber: '', time: '', photofinish: '', position: '');
           Navigator.of(context).pushNamed('details');
         },
         child: const Icon(Icons.add),
